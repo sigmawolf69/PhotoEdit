@@ -106,13 +106,14 @@ Search for `https://www.patreon.com/c/abcd` in `app/page.tsx` and replace it wit
 
 Edit the `metadata` object in `app/layout.tsx`.
 
-## Deployment
+## GitHub Automation
 
-This project builds to a Cloudflare Worker-compatible Vinext application. It can be deployed through OpenAI Sites using the included `.openai/hosting.json` and `vite.config.ts` configuration.
+The repository includes the following automation:
 
-For a different hosting provider, confirm that it supports the project's Vinext/Vite output and Node.js runtime requirements. Always run `npm run build` successfully before deployment.
+- `.github/workflows/ci.yml` runs lint and a production build for pushes and pull requests targeting `main`.
+- `.github/dependabot.yml` checks npm packages and GitHub Actions for updates every week.
 
-No database, API key, image-storage service, or other environment variable is required for the current application.
+No deployment provider or deployment credentials are configured. GitHub Actions currently checks that every proposed change can lint and build successfully without publishing the website.
 
 ## Privacy Notes
 
@@ -153,4 +154,3 @@ When requesting support, include:
 - Node.js version
 - The command that failed
 - The complete error message, excluding passwords, tokens, or other secrets
-
