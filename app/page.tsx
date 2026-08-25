@@ -443,7 +443,7 @@ export default function Home() {
               batch
             </strong>
             <span>
-              Select each photo and add the regions you want to protect.
+              Select each photo and add the regions you want to protect. 
             </span>
           </div>
           <label>
