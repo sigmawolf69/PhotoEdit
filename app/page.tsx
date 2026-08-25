@@ -404,7 +404,7 @@ export default function Home() {
       </header>
       <section className="hero">
         <div>
-          <p className="eyebrow">PRIVATE BY DESIGN</p>
+          <p className="eyebrow">PRIVATE BY DESIGN 😊</p>
           <h1>
             Hide what matters.
             <br />
