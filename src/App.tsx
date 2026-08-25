@@ -1,5 +1,3 @@
-"use client";
-
 import { useCallback, useEffect, useRef, useState } from "react";
 import JSZip from "jszip";
 type Shape = "rectangle" | "ellipse";
@@ -399,7 +397,7 @@ export default function Home() {
           aria-label="Download the full website code from Patreon (opens in a new tab)"
         >
           <span aria-hidden="true">↓</span>
-          <span className="code-link-label">Buy Full Code 🙌</span>
+          <span className="code-link-label">Buy Full Code</span>
         </a>
       </header>
       <section className="hero">
@@ -443,7 +441,7 @@ export default function Home() {
               batch
             </strong>
             <span>
-              Select each photo and add the regions you want to protect. 
+              Select each photo and add the regions you want to protect.
             </span>
           </div>
           <label>

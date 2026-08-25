@@ -58,10 +58,10 @@ Create an optimized production build with:
 npm run build
 ```
 
-Start the production build locally with:
+Preview the production build locally with:
 
 ```bash
-npm run start
+npm run preview
 ```
 
 Before publishing changes, also run:
@@ -75,45 +75,45 @@ Both the build and lint commands should finish without errors.
 ## Project Structure
 
 ```text
-app/
-  globals.css       Global styles and responsive layout
-  layout.tsx        Page metadata, fonts, and root layout
-  page.tsx          Image editor interface and processing logic
+src/
+  App.tsx           Image editor interface and processing logic
+  main.tsx          React browser entry point
+  styles.css        Global styles and responsive layout
 public/
   favicon.svg       Browser icon
-.openai/
-  hosting.json      OpenAI Sites hosting configuration
+index.html          Page metadata and application mount point
 eslint.config.mjs   Lint configuration
 package.json        Dependencies and project commands
-vite.config.ts      Vinext, Vite, and Cloudflare configuration
+vite.config.ts      Static Vite build configuration
 ```
 
 ## Customization
 
 ### Branding and page content
 
-Edit `app/page.tsx` to change the product name, headings, descriptions, footer text, or buttons.
+Edit `src/App.tsx` to change the product name, headings, descriptions, footer text, or buttons.
 
 ### Colors and responsive design
 
-Edit `app/globals.css`. The main theme colors are defined near the beginning of the file as CSS variables such as `--purple`, `--ink`, `--muted`, and `--cream`.
+Edit `src/styles.css`. The main theme colors are defined near the beginning of the file as CSS variables such as `--purple`, `--ink`, `--muted`, and `--cream`.
 
 ### Patreon link
 
-Search for `https://www.patreon.com/c/abcd` in `app/page.tsx` and replace it with your own Patreon or product-download URL.
+Search for `https://www.patreon.com/c/abcd` in `src/App.tsx` and replace it with your own Patreon or product-download URL.
 
 ### Page title and description
 
-Edit the `metadata` object in `app/layout.tsx`.
+Edit the `<title>` and metadata tags in `index.html`.
 
 ## GitHub Automation
 
 The repository includes the following automation:
 
 - `.github/workflows/ci.yml` runs lint and a production build for pushes and pull requests targeting `main`.
+- `.github/workflows/deploy-pages.yml` builds and publishes the static `dist` folder to GitHub Pages after every push to `main`.
 - `.github/dependabot.yml` checks npm packages and GitHub Actions for updates every week.
 
-No deployment provider or deployment credentials are configured. GitHub Actions currently checks that every proposed change can lint and build successfully without publishing the website.
+To enable publishing, open the GitHub repository and go to **Settings → Pages**. Under **Build and deployment**, choose **GitHub Actions** as the source. Push to `main`, then follow the deployment from the repository's **Actions** tab. GitHub automatically creates the `github-pages` environment and displays the public URL after a successful deployment. No external hosting credentials are required.
 
 ## Privacy Notes
 
