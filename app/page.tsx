@@ -399,7 +399,7 @@ export default function Home() {
           aria-label="Download the full website code from Patreon (opens in a new tab)"
         >
           <span aria-hidden="true">↓</span>
-          <span className="code-link-label">Buy Full Code</span>
+          <span className="code-link-label">Buy Full Code 🙌</span>
         </a>
       </header>
       <section className="hero">
