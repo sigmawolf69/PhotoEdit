@@ -29,6 +29,10 @@ const sample =
   );
 
 export default function Home() {
+  const [dark, setDark] = useState(() => {
+    const saved = localStorage.getItem("blurshield-theme");
+    return saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
   const canvasRef = useRef<HTMLCanvasElement>(null),
     imageRef = useRef<HTMLImageElement | null>(null),
     startRef = useRef<{ x: number; y: number } | null>(null),
@@ -54,6 +58,10 @@ export default function Home() {
   const [exporting, setExporting] = useState(false),
     [notice, setNotice] = useState(""),
     [isDraggingFiles, setIsDraggingFiles] = useState(false);
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+    localStorage.setItem("blurshield-theme", dark ? "dark" : "light");
+  }, [dark]);
   const [selected, setSelected] = useState<number | null>(null),
     [shape, setShape] = useState<Shape>("rectangle"),
     [effect, setEffect] = useState<Effect>("blur"),
@@ -176,6 +184,8 @@ export default function Home() {
     };
   };
   const onDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!e.isPrimary || e.button !== 0) return;
+    e.preventDefault();
     const p = point(e);
     startRef.current = p;
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -193,6 +203,7 @@ export default function Home() {
   };
   const onMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!startRef.current || !draft) return;
+    e.preventDefault();
     const p = point(e),
       s = startRef.current;
     setDraft({
@@ -389,9 +400,18 @@ export default function Home() {
         <div className="privacy">
           <span>●</span> Your images stay on this device
         </div>
+        <button
+          className="theme-switch"
+          type="button"
+          onClick={() => setDark((current) => !current)}
+          aria-label={`Switch to ${dark ? "light" : "dark"} theme`}
+          title={`Switch to ${dark ? "light" : "dark"} theme`}
+        >
+          <span aria-hidden="true">{dark ? "☀" : "☾"}</span>
+        </button>
         <a
           className="code-link"
-          href="https://www.patreon.com/c/abcd"
+          href="https://www.patreon.com/simpwolf69/posts/blursheild-code-167799564"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Download the full website code from Patreon (opens in a new tab)"
@@ -518,6 +538,7 @@ export default function Home() {
               onPointerDown={onDown}
               onPointerMove={onMove}
               onPointerUp={onUp}
+              onPointerCancel={onUp}
             />
             <div className="draw-hint">✦ Click and drag to protect an area</div>
           </div>
